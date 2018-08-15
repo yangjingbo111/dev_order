@@ -1,0 +1,41 @@
+/**index.wxss**/
+#sendmsg {
+  bottom: 0px;
+
+}
+
+#sendcontent {
+  border-width: 2px;
+  border-block-end-color: lightblue;
+  margin: 4px;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container{
+  margin: 16px;
+  color: darkgray;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.btn_weather {
+  margin-top: 200px;
+}
+
+.btn_camera {
+  margin-top: 8px;
+}

@@ -1,0 +1,26 @@
+<view>
+  
+  <button type='primary' bindtap='bindRefresh'>刷新天气</button>
+  <view>
+    <text>{{ weather[0]['location'] }} </text>
+    <text>{{ weather[0]['text'] }} </text>
+    <text>{{ weather[0]['temp'] }} </text>
+    <text>{{ weather[0]['last_update'] }}</text>
+  </view>
+  
+  <view>
+    <text>{{ weather[1]['location'] }} </text>
+    <text>{{ weather[1]['text'] }} </text>
+    <text>{{ weather[1]['temp'] }} </text>
+    <text>{{ weather[1]['last_update'] }}</text>
+  </view>
+  
+
+  <view>
+    <text>{{ weather[2]['location'] }} </text>
+    <text>{{ weather[2]['text'] }} </text>
+    <text>{{ weather[2]['temp'] }} </text>
+    <text>{{ weather[2]['last_update'] }}</text>
+  </view>
+  
+</view>
