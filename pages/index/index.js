@@ -49,24 +49,25 @@ Page({
   },
   sendmsg: function(res){
     var that = this;
-    console.log('sending message...');
     // var msg = {
-    //   name: "yangjingbo",
-    //   age: 29
+    //   content: this.data.msg_content,
+    //   time: 29
     // }
     var msg = this.data.msg_content;
-    console.log(msg);
+    console.log('sending message...', msg);
     wx.sendSocketMessage({
-      data: [JSON.stringify(msg)],
+      data: msg,//[JSON.stringify(msg)],
       success: function (res) { },
       fail: function (res) { },
       complete: function (res) { },
     })
     wx.onSocketMessage(function (res) {
+      // var obj = JSON.parse(res.data);
+      // console.log(obj);
       that.setData({
-        recvdata: res.data
+        recvdata: res.data,//obj.content,
       })
-      console.log('recving: ', res)
+      console.log('recving: ', res.data);
 
     })
   },
