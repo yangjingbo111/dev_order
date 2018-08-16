@@ -9,6 +9,24 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+  onShow: function(){
+    console.log('index page show');
+    var that = this;
+    wx.connectSocket({
+      url: 'wss://www.ntdev.top',
+      protocols: ['echo-protocol'],
+      fail: function (err) {
+        console.log('socket connected failed: ', err);
+      },
+      success: function () {
+        console.log('socket connected');
+      }
+    })
+    wx.onSocketOpen(function (res) {
+      console.log('WebSocket连接已打开！');
+
+    })
+  },
   //事件处理函数
   sendrequest: function(){
     console.log('button clicked')
@@ -21,24 +39,6 @@ Page({
         console.log(res.data)
       }
     })
-  },
-  open_websocket: function(){
-    var that = this;
-    wx.connectSocket({
-      url: 'wss://www.ntdev.top',
-      protocols: ['echo-protocol'],
-      fail: function(err){
-        console.log('socket connected failed: ', err);
-      },
-      success: function(){
-        console.log('socket connected');
-      }
-    })
-    wx.onSocketOpen(function (res) {
-      console.log('WebSocket连接已打开！');
-
-    })
-    
   },
   
   
@@ -53,19 +53,32 @@ Page({
     //   content: this.data.msg_content,
     //   time: 29
     // }
+    
+    console.log('sending message...');
+    // if(this.data.msg_content)return
     var msg = this.data.msg_content;
-    console.log('sending message...', msg);
+    
     wx.sendSocketMessage({
       data: msg,//[JSON.stringify(msg)],
-      success: function (res) { },
+      success: function (res) { 
+        
+      },
       fail: function (res) { },
       complete: function (res) { },
     })
+    this.setData({
+      msg_content: ""
+    })
+    
+
     wx.onSocketMessage(function (res) {
       // var obj = JSON.parse(res.data);
       // console.log(obj);
+      that.data.history_msgs = [res.data].concat(that.data.history_msgs) //添加收到的消息到消息列表中
+     
       that.setData({
         recvdata: res.data,//obj.content,
+        history_msgs: that.data.history_msgs
       })
       console.log('recving: ', res.data);
 
@@ -119,6 +132,11 @@ Page({
       // })
     }
   },
+  clrmsg: function(e){
+    this.setData({
+      history_msgs: []
+    })
+  },
   // getUserInfo: function(e) {
   //   console.log(e)
   //   app.globalData.userInfo = e.detail.userInfo
@@ -132,5 +150,6 @@ Page({
     connection_status: false,
     msg_content: "",
     recvdata: "",
+    history_msgs: [],
   }
 })

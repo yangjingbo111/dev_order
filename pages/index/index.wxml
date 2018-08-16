@@ -1,24 +1,20 @@
 <!--index.wxml-->
 <view class="container">
-  <view class='title'>
-    <text class="company-name">{{company_name}}</text>
+  
+  <button id='clrmsg' bindtap='clrmsg' >clear</button>
+  <text>接收到的信息：</text>
+  <!-- <text>{{ recvdata }}</text> -->
+  <view wx:for="{{ history_msgs }}" wx:key="*this">
+  {{item}}
   </view>
-  
 
-  <text class="company-intro">江苏海湾电气科技有限公司是一家生产，销售和服务为一体的高科技企业，为用户提供船舶电子设备的一站式解决方案 ，目前自主研发的电气设备包括船舶内部通讯系统、通讯导航系统、火灾报警与气体探测系统，CCTV监控安全系统，船舶监测报警系统，动力控制系统等。</text>
-  <button type='primary' bindtap='sendrequest'>http request</button>
-  <button type='primary' bindtap='open_websocket'>打开聊天通道</button>
-  <!-- <button type='primary' bindtap='close_websocket'>关闭聊天通道</button> -->
   
-  <view>
-
-      <text>待发送信息：</text>
-      <input id='sendcontent' type='primary' placeholder='input message' bindinput='bindmsgcontent'></input>
+  <!-- <button type='primary' bindtap='sendrequest'>http request</button> -->
+  
+  <view style='display:flex; justify-content:space-between' >
       
-      <text>接收到的信息：</text>
-      <text>{{ recvdata }}</text>
-      <button id='sendmsg' bindtap='sendmsg' >发送</button>
-
+      <input id='sendcontent' placeholder='input message' bindinput='bindmsgcontent' auto-focus='true' value='{{msg_content}}'></input>      
+      <button id='sendmsg' bindtap='sendmsg' >send</button>
   </view>
   
 </view>
